@@ -1,50 +1,113 @@
 ===============
-Rozdział 2
+Rozdział 3
 ===============
 
 Stworzona aplikacja umożliwia zarządzanie bazą danych, która zajmuje się obsługą serwisową dla wskazanego budynku. Baza zawiera dane odnośnie dostepnego sprzętu oraz to gdzie się znajduje. Można nazwać ją jako inwentaryzację sprzętową. Numer seryjny sprzętu jest kluczem głównym dla tej bazy.
 
-Instrukcja części klienckiej
--------------
+Kod z omówieniem
+------------------------------
+import pandas as pd
+import simplejson
+from connection import get_database_connection
 
-Obsługa serwisowa urządzeń części klienckiej odbywa się za pomocą konsoli. Uruchamiamy aplikację za pomocą pliku main.py.
-Oto opis każdej opcji menu wraz z odpowiadającymi im plikami:
 
-1. Wprowadź dane (data.py):
--------------
-Ta opcja pozwala na wprowadzenie danych do programu. Po uruchomieniu zadaje pytanie czy użytkownik chce dodać nowe dane. Po twierdzącej odpowiedzi, wprowadzamy dane: 
--"Podaj typ urządzenia: "
--"Podaj numer seryjny urządzenia: "
--"Podaj lokalizację urządzenia: "
--"Podaj datę zakupu urządzenia (yyyy-mm-dd): "
--"Czy urządzenie posiada gwarancję?: "
--"Podaj datę przeglądu (yyyy-mm-dd): "
--"Podaj wynik przeglądu: "
+# Sprawdzenie, czy typy enum już istnieją
 
-2.Zaimportuj dane do SQLite (dataToDB.py):
--------------
-Ta opcja odpowiada za importowanie danych wprowadzonych w poprzedniej opcji (data.py) do bazy danych SQLite. Plik dataToDB.py zawiera skrypt, który wykonuje operacje związane z importem danych i zapisuje je w bazie danych SQLite.
+def create_table(cursor):
+    cursor.execute("SELECT EXISTS(SELECT 1 FROM pg_type WHERE typname = 'typ_urzadzenia_enum')")
+    typ_urzadzenia_exists = cursor.fetchone()[0]
+    cursor.execute("SELECT EXISTS(SELECT 1 FROM pg_type WHERE typname = 'gwarancja_enum')")
+    gwarancja_exists = cursor.fetchone()[0]
+    cursor.execute("SELECT EXISTS(SELECT 1 FROM pg_type WHERE typname = 'wynik_przegladu_enum')")
+    wynik_przegladu_exists = cursor.fetchone()[0]
 
-3.Zaimportuj dane do PostgreSQL (importToPostgres.py):
--------------
-Ta opcja służy do importowania danych wprowadzonych w data.py do bazy danych PostgreSQL. Skrypt importToPostgres.py zajmuje się operacjami związanymi z importem danych i zapisuje je w bazie danych PostgreSQL.
+# Tworzenie typu enum 'Typ_urzadzenia', jeśli nie istnieje
 
-4.Utwórz strukturę bazy danych (createStructure.py):
--------------
-Ta opcja odpowiada za utworzenie struktury bazy danych. Skrypt createStructure.py zawiera definicje tabel, relacji i innych obiektów bazy danych, które są potrzebne do prawidłowego funkcjonowania programu.
+    if not typ_urzadzenia_exists:
+        cursor.execute("CREATE TYPE Typ_urzadzenia_enum AS ENUM ('Laptop', 'Drukarka', 'Smartphone', 'Fax', 'Komputer stacjonarny', 'Tablet', 'Router', 'Skaner', 'Projektor', 'Serwer');")
 
-5. Wstaw dane testowe (testData.py):
--------------
-Ta opcja służy do wstawienia danych testowych do bazy danych. Plik testData.py zawiera skrypt, który generuje przykładowe dane testowe i wprowadza je do bazy danych.
+# Tworzenie typu enum 'Gwarancja', jeśli nie istnieje
 
-6.Wyczyść tabelę (clearDB.py):
--------------
-Ta opcja umożliwia wyczyszczenie zawartości wybranej tabeli w bazie danych. Użytkownik zostanie poproszony o podanie nazwy tabeli, a następnie skrypt clearDB.py wykonuje operacje usuwania danych z tej tabeli.
+    if not gwarancja_exists:
+        cursor.execute("CREATE TYPE Gwarancja_enum AS ENUM ('Tak', 'Nie');")
 
-7. Wyczyść wszystkie tabele lub bazę danych (clearDB.py):
--------------
-Ta opcja pozwala na wyczyszczenie wszystkich tabel w bazie danych lub całej bazy danych. Użytkownik zostanie poproszony o podanie odpowiedniego parametru (--all lub --drop), a następnie skrypt clearDB.py wykonuje odpowiednie operacje czyszczenia.
+# Tworzenie tabeli 'data', jeśli nie istnieje
 
-8. Wyjdź z programu:
--------------
-Opcja kończy działanie programu i zamyka go.
+    cursor.execute('''CREATE TABLE IF NOT EXISTS data (
+                        Typ_urzadzenia Typ_urzadzenia_enum,
+                        Numer_seryjny VARCHAR PRIMARY KEY,
+                        Lokalizacja VARCHAR,
+                        Data_zakupu DATE,
+                        Gwarancja Gwarancja_enum
+                    );''')
+
+# Tworzenie typu enum 'Wynik_przegladu', jeśli nie istnieje
+
+    if not wynik_przegladu_exists:
+        cursor.execute("CREATE TYPE Wynik_przegladu_enum AS ENUM ('Pozytywny', 'Negatywny', 'Wstrzymany');")
+
+# Tworzenie tabeli 'service', jeśli nie istnieje
+
+    cursor.execute('''CREATE TABLE IF NOT EXISTS service (
+                        Numer_seryjny TEXT REFERENCES data(Numer_seryjny),
+                        Data_przegladu DATE,
+                        Wynik_przegladu Wynik_przegladu_enum
+                    );''')
+
+# Wstawianie danych o sprzęcie do tabeli w bazie danych
+
+def insert_equipment_data(cursor, data):
+    cursor.executemany('''INSERT INTO data (
+                        Typ_urzadzenia, Numer_seryjny, Lokalizacja,
+                        Data_zakupu, Gwarancja
+                    ) VALUES (%s, %s, %s, %s, %s);''', data)
+
+# Wstawianie danych o przeglądzie do tabeli w bazie danych
+
+def insert_service_data(cursor, data):
+    cursor.executemany('''INSERT INTO service (
+                        Numer_seryjny, 
+                        Data_przegladu, 
+                        Wynik_przegladu
+                    ) VALUES (%s, %s, %s);''', data)
+
+def main():
+# Ładowanie danych z pliku CSV
+
+    equipment_data = pd.read_csv('results/data.csv')
+    service_data = pd.read_csv('results/service.csv')
+
+# Nawiązywanie połączenia z bazą danych PostgreSQL
+
+    conn = get_database_connection()
+    cursor = conn.cursor()
+
+# Tworzenie tabeli w bazie danych PostgreSQL
+
+    create_table(cursor)
+    conn.commit()
+
+# Przekształcenie danych o sprzęcie z DataFrame na listę krotek
+
+    equipment_tuples = [tuple(row) for row in equipment_data.itertuples(index=False)]
+    # Wstawianie danych o sprzęcie do tabeli "data"
+    insert_equipment_data(cursor, equipment_tuples)
+
+# Przekształcenie danych o przeglądzie z DataFrame na listę krotek
+
+    service_tuples = [tuple(row) for row in service_data[['Numer seryjny', 'Data przeglądu', 'Wynik przeglądu']].itertuples(index=False)]
+# Wstawianie danych o przeglądzie do tabeli "service"
+
+    insert_service_data(cursor, service_tuples)
+
+# Zatwierdzanie zmian w bazie danych PostgreSQL
+
+    conn.commit()
+
+# Zamykanie połączenia
+
+    cursor.close()
+    conn.close()
+
+if __name__ == '__main__':
+    main()

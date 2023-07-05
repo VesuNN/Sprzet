@@ -146,23 +146,22 @@ Oto opis każdej opcji menu wraz z odpowiadającymi im plikami:</p>
 </section>
 <section id="omowienie-importu-danych-z-pliku-data-py-do-sqlite">
 <h2>Omówienie importu danych z pliku data.py do SQLite:<a class="headerlink" href="#omowienie-importu-danych-z-pliku-data-py-do-sqlite" title="Permalink to this heading"></a></h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
-<dl>
-<dt>def validate_date_format(date):</dt><dd><p># Sprawdzanie poprawności formatu daty
-pattern = r»^d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]d|3[01])$»
-if re.match(pattern, date):</p>
+<p># Sprawdzanie poprawności formatu daty</p>
 <blockquote>
-<div><p>return True</p>
-</div></blockquote>
-<dl class="simple">
+<div><dl class="simple">
+<dt>def validate_date_format(date):</dt><dd><p>pattern = r»^d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]d|3[01])$»</p>
+</dd>
+<dt>if re.match(pattern, date):</dt><dd><p>return True</p>
+</dd>
 <dt>else:</dt><dd><p>print(„Błędny format daty. Poprawny format: yyyy-mm-dd”)
 return False</p>
 </dd>
 </dl>
-</dd>
-<dt>def validate_enum_value(enum_type, value):</dt><dd><p># Sprawdzanie poprawności wartości enum
+</div></blockquote>
+<p># Sprawdzanie poprawności wartości enum</p>
+<blockquote>
+<div><blockquote>
+<div><p>def validate_enum_value(enum_type, value):
 enum_values = [val.lower() for val in enum_type]
 value_lower = value.lower()
 if value_lower in enum_values:</p>
@@ -174,102 +173,124 @@ if value_lower in enum_values:</p>
 return False</p>
 </dd>
 </dl>
-</dd>
-<dt>def collect_data():</dt><dd><p># Zbieranie danych z różnych źródeł
+</div></blockquote>
+<p># Zbieranie danych z różnych źródeł</p>
+<blockquote>
+<div><blockquote>
+<div><p>def collect_data():
 equipment_data = []
-service_data = []
-# Logika zbierania danych</p>
+service_data = []</p>
+<p># Logika zbierania danych</p>
 <dl>
 <dt>while True:</dt><dd><p>choice = input(„Czy chcesz dodać informacje o sprzęcie? (Tak/Nie): „)
 if choice.lower() == «nie»:</p>
 <blockquote>
 <div><p>break</p>
 </div></blockquote>
-<dl>
-<dt>elif choice.lower() == «tak»:</dt><dd><p># Dodawanie informacji o sprzęcie
-device_type = input(„Podaj typ urządzenia: „)
+<p>elif choice.lower() == «tak»:</p>
+<blockquote>
+<div><blockquote>
+<div><p># Dodawanie informacji o sprzęcie</p>
+<p>device_type = input(„Podaj typ urządzenia: „)
 serial_number = input(„Podaj numer seryjny urządzenia: „)
 location = input(„Podaj lokalizację urządzenia: „)
 purchase_date = input(„Podaj datę zakupu urządzenia (yyyy-mm-dd): „)
-warranty = input(„Czy urządzenie posiada gwarancję?: „)
-# Walidacja typu urządzenia
-while not validate_enum_value([«Laptop», «Drukarka», «Smartphone», «Fax», «Komputer stacjonarny», «Tablet», «Router», «Skaner», «Projektor», «Serwer»], device_type):</p>
-<blockquote>
-<div><p>device_type = input(„Podaj typ urządzenia: „)</p>
+warranty = input(„Czy urządzenie posiada gwarancję?: „)</p>
 </div></blockquote>
-<p># Walidacja informacji o gwarancji
-while not validate_enum_value([«Tak», «Nie»], warranty):</p>
+<p># Walidacja typu urządzenia</p>
 <blockquote>
-<div><p>warranty = input(„Czy urządzenie posiada gwarancję?: „)</p>
+<div><blockquote>
+<div><dl class="simple">
+<dt>while not validate_enum_value([«Laptop», «Drukarka», «Smartphone», «Fax», «Komputer stacjonarny», «Tablet», «Router», «Skaner», «Projektor», «Serwer»], device_type):</dt><dd><p>device_type = input(„Podaj typ urządzenia: „)</p>
+</dd>
+</dl>
 </div></blockquote>
-<p># Walidacja daty zakupu
-while not validate_date_format(purchase_date):</p>
+<p># Walidacja informacji o gwarancji</p>
 <blockquote>
-<div><p>purchase_date = input(„Podaj datę zakupu urządzenia (yyyy-mm-dd): „)</p>
-</div></blockquote>
-<p># Dodawanie informacji do zbioru danych
-equipment_data.append({</p>
-<blockquote>
-<div><p>«Typ urządzenia»: device_type.capitalize(),
+<div><dl class="simple">
+<dt>while not validate_enum_value([«Tak», «Nie»], warranty):</dt><dd><p>warranty = input(„Czy urządzenie posiada gwarancję?: „)</p>
+</dd>
+</dl>
+<p># Walidacja daty zakupu</p>
+<dl class="simple">
+<dt>while not validate_date_format(purchase_date):</dt><dd><p>purchase_date = input(„Podaj datę zakupu urządzenia (yyyy-mm-dd): „)</p>
+</dd>
+</dl>
+<p># Dodawanie informacji do zbioru danych</p>
+<dl class="simple">
+<dt>equipment_data.append({</dt><dd><p>«Typ urządzenia»: device_type.capitalize(),
 «Numer seryjny»: serial_number,
 «Lokalizacja»: location.capitalize(),
 «Data zakupu»: purchase_date,
 «Gwarancja»: warranty.capitalize()</p>
-</div></blockquote>
+</dd>
+</dl>
 <p>})</p>
-<p># Dodawanie informacji o przeglądzie
-service_date = input(„Podaj datę przeglądu (yyyy-mm-dd): „)
-service_result = input(„Podaj wynik przeglądu: „)
-# Walidacja wyniku przeglądu
-while not validate_enum_value([«Pozytywny», «Negatywny», «Wstrzymany»], service_result):</p>
-<blockquote>
-<div><p>service_result = input(„Podaj wynik przeglądu: „)</p>
-</div></blockquote>
-<p># Walidacja daty przeglądu
-while not validate_date_format(service_date):</p>
-<blockquote>
-<div><p>service_date = input(„Podaj datę przeglądu (yyyy-mm-dd): „)</p>
-</div></blockquote>
-<p># Dodawanie informacji do zbioru danych
-service_data.append({</p>
-<blockquote>
-<div><p>«Numer seryjny»: serial_number,
+<p># Dodawanie informacji o przeglądzie</p>
+<p>service_date = input(„Podaj datę przeglądu (yyyy-mm-dd): „)
+service_result = input(„Podaj wynik przeglądu: „)</p>
+<p># Walidacja wyniku przeglądu</p>
+<dl class="simple">
+<dt>while not validate_enum_value([«Pozytywny», «Negatywny», «Wstrzymany»], service_result):</dt><dd><p>service_result = input(„Podaj wynik przeglądu: „)</p>
+</dd>
+</dl>
+<p># Walidacja daty przeglądu</p>
+<dl class="simple">
+<dt>while not validate_date_format(service_date):</dt><dd><p>service_date = input(„Podaj datę przeglądu (yyyy-mm-dd): „)</p>
+</dd>
+</dl>
+<p># Dodawanie informacji do zbioru danych</p>
+<dl class="simple">
+<dt>service_data.append({</dt><dd><p>«Numer seryjny»: serial_number,
 «Data przeglądu»: service_date,
 «Wynik przeglądu»: service_result.capitalize()</p>
-</div></blockquote>
-<p>})</p>
 </dd>
+</dl>
+<p>})</p>
+</div></blockquote>
+</div></blockquote>
+</div></blockquote>
+<dl class="simple">
 <dt>else:</dt><dd><p>print(f”Błędna odpowiedź! Proszę wybrać «Tak» lub «Nie».”)</p>
 </dd>
 </dl>
 </dd>
 </dl>
-<p># Zwracanie zebranych danych jako obiekt DataFrame z biblioteki pandas
-equipment_df = pd.DataFrame(equipment_data)
+</div></blockquote>
+<p># Zwracanie zebranych danych jako obiekt DataFrame z biblioteki pandas</p>
+<blockquote>
+<div><p>equipment_df = pd.DataFrame(equipment_data)
 service_df = pd.DataFrame(service_data)
 return equipment_df, service_df</p>
-</dd>
-<dt>def export_to_csv(dataframe, filename):</dt><dd><dl class="simple">
-<dt>if os.path.isfile(filename):</dt><dd><p># Jeśli plik istnieje, odczytaj istniejący plik CSV
-existing_data = pd.read_csv(filename)
-# Połącz istniejące dane z nowymi danymi
-updated_data = pd.concat([existing_data, dataframe], ignore_index=True)
-# Zapisz zaktualizowane dane do pliku CSV bez nagłówków
-updated_data.to_csv(filename, index=False)
+</div></blockquote>
+</div></blockquote>
+</div></blockquote>
+<dl>
+<dt>def export_to_csv(dataframe, filename):</dt><dd><p>if os.path.isfile(filename):</p>
+<blockquote>
+<div><p># Jeśli plik istnieje, odczytaj istniejący plik CSV</p>
+<p>existing_data = pd.read_csv(filename)</p>
+<p># Połącz istniejące dane z nowymi danymi</p>
+<p>updated_data = pd.concat([existing_data, dataframe], ignore_index=True)</p>
+<p># Zapisz zaktualizowane dane do pliku CSV bez nagłówków</p>
+<p>updated_data.to_csv(filename, index=False)
 print(f”Dane zostały zaktualizowane w pliku {filename}.”)</p>
-</dd>
-<dt>else:</dt><dd><p># Jeśli plik nie istnieje, utwórz nowy plik CSV
-dataframe.to_csv(filename, index=False)
+</div></blockquote>
+<p>else:</p>
+<blockquote>
+<div><p># Jeśli plik nie istnieje, utwórz nowy plik CSV</p>
+<p>dataframe.to_csv(filename, index=False)
 print(f”Nowy plik {filename} został utworzony.”)</p>
+</div></blockquote>
 </dd>
 </dl>
-</dd>
-<dt>def main():</dt><dd><p># Główna funkcja programu
-equipment_data, service_data = collect_data()
+<p>def main():</p>
+<blockquote>
+<div><p># Główna funkcja programu</p>
+<p>equipment_data, service_data = collect_data()
 export_to_csv(equipment_data, «results/data.csv»)
 export_to_csv(service_data, «results/service.csv»)</p>
-</dd>
-</dl>
+</div></blockquote>
 </section>
 </section>
 

@@ -28,13 +28,13 @@ Odpowiada za to plik: (data.py)
 
 2.Zaimportuj dane do SQLite:
 -------------------------------------------
-Ta opcja odpowiada za importowanie danych wprowadzonych w poprzedniej opcji (data.py) do bazy danych SQLite. Plik dataToDB.py zawiera skrypt, który wykonuje operacje związane z importem danych i zapisuje je w bazie danych SQLite.
+Ta opcja odpowiada za importowanie danych wprowadzonych z pliku .csv do bazy danych SQLite. Plik dataToDB.py zawiera skrypt, który wykonuje operacje związane z importem danych i zapisuje je w bazie danych SQLite.
 
 Odpowiada za to plik: (dataToDB.py)
 
 3.Zaimportuj dane do PostgreSQL:
 ------------------------------------------------------
-Ta opcja służy do importowania danych wprowadzonych w data.py do bazy danych PostgreSQL. Skrypt importToPostgres.py zajmuje się operacjami związanymi z importem danych i zapisuje je w bazie danych PostgreSQL.
+Ta opcja służy do importowania danych z bazy danych utworzonych w SQLite do bazy danych PostgreSQL. Skrypt importToPostgres.py zajmuje się operacjami związanymi z importem danych i zapisuje je w bazie danych PostgreSQL.
 
 Odpowiada za to plik: (importToPostgres.py)
 
@@ -48,7 +48,7 @@ Odpowiada za to plik: (createStructure.py)
 
 5. Wstaw dane testowe:
 ---------------------------------------
-Ta opcja służy do wstawienia danych testowych do bazy danych. Plik testData.py zawiera skrypt, który generuje przykładowe dane testowe i wprowadza je do bazy danych.
+Ta opcja służy do wstawienia danych testowych do bazy danych. Plik testData.py zawiera skrypt, który posiada przykładowe dane testowe i wprowadza je do bazy danych.
 
 Odpowiada za to plik: (testData.py)
 

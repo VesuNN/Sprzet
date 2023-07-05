@@ -3,9 +3,10 @@ Welcome to Te's documentation!
 
 .. toctree::
    :maxdepth: 2
-   :caption: Sprzęt dla bazy danych
+   :caption: Sprzęt dla bazy danych 
 
    wstep
+   rozdzial2
     
 Indices and tables
 ==================

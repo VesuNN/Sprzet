@@ -6,6 +6,7 @@ Welcome to Te's documentation!
    :caption: Sprzęt dla bazy danych 
 
    wstep
+   rozdzial2
     
 Indices and tables
 ==================

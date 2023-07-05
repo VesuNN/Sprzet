@@ -15,6 +15,7 @@
     <script src="_static/translations.js"></script>
     <link rel="index" title="Indeks" href="genindex.html" />
     <link rel="search" title="Szukaj" href="search.html" />
+    <link rel="next" title="Rozdział 3" href="rozdzial3.html" />
     <link rel="prev" title="Rozdział 1" href="wstep.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
@@ -34,10 +35,60 @@
             
   <section id="rozdzial-2">
 <h1>Rozdział 2<a class="headerlink" href="#rozdzial-2" title="Permalink to this heading">¶</a></h1>
-<p>Stworzona aplikacja umożliwia zarządzanie bazą danych, która zajmuje się obsługą serwisową dla wskazanego budynku. Baza zawiera dane odnośnie dostepnego sprzętu oraz to gdzie się znajduje. Można nazwać ją jako inwentaryzację sprzętową.</p>
+<p>Stworzona aplikacja umożliwia zarządzanie bazą danych, która zajmuje się obsługą serwisową dla wskazanego budynku. Baza zawiera dane odnośnie dostepnego sprzętu oraz w którym pomieszczeniu jest zainstalowany. Można nazwać ją jako inwentaryzację sprzętową.</p>
 <section id="instrukcja-czesci-klienckiej">
 <h2>Instrukcja części klienckiej<a class="headerlink" href="#instrukcja-czesci-klienckiej" title="Permalink to this heading">¶</a></h2>
-<p>Obsługa serwisowa urządzeń części klienckiej odbywa się za pomocą konsoli. Uruchamiamy aplikację za pomocą pliku main.py.</p>
+<p>Dane w bazie są zbierane w dwóch tabelach. Pierwsza tabela posiada kolumny takie jak: Typ urządzenia, Numer seryjny, Lokalizacja, Data zakupu, Gwarancja.
+W drugiej tabeli zbierane są dane odnośnie przeglądów. Zawiera kolumny: Numer seryjny, Data przeglądu, Wynik przeglądu.
+Numer seryjny sprzętu jest kluczem głównym dla tej bazy.
+Obsługa serwisowa urządzeń części klienckiej odbywa się za pomocą konsoli. Uruchamiamy aplikację za pomocą pliku main.py.
+Oto opis każdej opcji menu wraz z odpowiadającymi im plikami:</p>
+</section>
+<section id="wprowadz-dane">
+<h2>1. Wprowadź dane:<a class="headerlink" href="#wprowadz-dane" title="Permalink to this heading">¶</a></h2>
+<p>Ta opcja pozwala na wprowadzenie danych do programu. Po uruchomieniu zadaje pytanie czy użytkownik chce dodać nowe dane. Po twierdzącej odpowiedzi, wprowadzamy dane:
+-„Podaj typ urządzenia: ”
+-„Podaj numer seryjny urządzenia: ”
+-„Podaj lokalizację urządzenia: ”
+-„Podaj datę zakupu urządzenia (yyyy-mm-dd): ”
+-„Czy urządzenie posiada gwarancję?: ”
+-„Podaj datę przeglądu (yyyy-mm-dd): ”
+-„Podaj wynik przeglądu: „</p>
+<p>Odpowiada za to plik: (data.py)</p>
+</section>
+<section id="zaimportuj-dane-do-sqlite">
+<h2>2.Zaimportuj dane do SQLite:<a class="headerlink" href="#zaimportuj-dane-do-sqlite" title="Permalink to this heading">¶</a></h2>
+<p>Ta opcja odpowiada za importowanie danych wprowadzonych w poprzedniej opcji (data.py) do bazy danych SQLite. Plik dataToDB.py zawiera skrypt, który wykonuje operacje związane z importem danych i zapisuje je w bazie danych SQLite.</p>
+<p>Odpowiada za to plik: (dataToDB.py)</p>
+</section>
+<section id="zaimportuj-dane-do-postgresql">
+<h2>3.Zaimportuj dane do PostgreSQL:<a class="headerlink" href="#zaimportuj-dane-do-postgresql" title="Permalink to this heading">¶</a></h2>
+<p>Ta opcja służy do importowania danych wprowadzonych w data.py do bazy danych PostgreSQL. Skrypt importToPostgres.py zajmuje się operacjami związanymi z importem danych i zapisuje je w bazie danych PostgreSQL.</p>
+<p>Odpowiada za to plik: (importToPostgres.py)</p>
+</section>
+<section id="utworz-strukture-bazy-danych">
+<h2>4.Utwórz strukturę bazy danych:<a class="headerlink" href="#utworz-strukture-bazy-danych" title="Permalink to this heading">¶</a></h2>
+<p>Ta opcja odpowiada za utworzenie struktury bazy danych. Skrypt createStructure.py zawiera definicje tabel, relacji i innych obiektów bazy danych, które są potrzebne do prawidłowego funkcjonowania programu.</p>
+<p>Odpowiada za to plik: (createStructure.py)</p>
+</section>
+<section id="wstaw-dane-testowe">
+<h2>5. Wstaw dane testowe:<a class="headerlink" href="#wstaw-dane-testowe" title="Permalink to this heading">¶</a></h2>
+<p>Ta opcja służy do wstawienia danych testowych do bazy danych. Plik testData.py zawiera skrypt, który generuje przykładowe dane testowe i wprowadza je do bazy danych.</p>
+<p>Odpowiada za to plik: (testData.py)</p>
+</section>
+<section id="wyczysc-tabele">
+<h2>6.Wyczyść tabelę:<a class="headerlink" href="#wyczysc-tabele" title="Permalink to this heading">¶</a></h2>
+<p>Ta opcja umożliwia wyczyszczenie zawartości wybranej tabeli w bazie danych. Użytkownik zostanie poproszony o podanie nazwy tabeli, a następnie skrypt clearDB.py wykonuje operacje usuwania danych z tej tabeli.</p>
+<p>Odpowiada za to plik: (clearDB.py)</p>
+</section>
+<section id="wyczysc-wszystkie-tabele-lub-baze-danych-cleardb-py">
+<h2>7. Wyczyść wszystkie tabele lub bazę danych (clearDB.py):<a class="headerlink" href="#wyczysc-wszystkie-tabele-lub-baze-danych-cleardb-py" title="Permalink to this heading">¶</a></h2>
+<p>Ta opcja pozwala na wyczyszczenie wszystkich tabel w bazie danych lub całej bazy danych. Użytkownik zostanie poproszony o podanie odpowiedniego parametru (–all lub –drop), a następnie skrypt clearDB.py wykonuje odpowiednie operacje czyszczenia.</p>
+<p>Odpowiada za to plik: (clearDB.py)</p>
+</section>
+<section id="wyjdz-z-programu">
+<h2>8. Wyjdź z programu:<a class="headerlink" href="#wyjdz-z-programu" title="Permalink to this heading">¶</a></h2>
+<p>Opcja kończy działanie programu i zamyka go.</p>
 </section>
 </section>
 
@@ -63,8 +114,17 @@
 <li class="toctree-l1"><a class="reference internal" href="wstep.html">Rozdział 1</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Rozdział 2</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#instrukcja-czesci-klienckiej">Instrukcja części klienckiej</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#wprowadz-dane">1. Wprowadź dane:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#zaimportuj-dane-do-sqlite">2.Zaimportuj dane do SQLite:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#zaimportuj-dane-do-postgresql">3.Zaimportuj dane do PostgreSQL:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#utworz-strukture-bazy-danych">4.Utwórz strukturę bazy danych:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#wstaw-dane-testowe">5. Wstaw dane testowe:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#wyczysc-tabele">6.Wyczyść tabelę:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#wyczysc-wszystkie-tabele-lub-baze-danych-cleardb-py">7. Wyczyść wszystkie tabele lub bazę danych (clearDB.py):</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#wyjdz-z-programu">8. Wyjdź z programu:</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="rozdzial3.html">Rozdział 3</a></li>
 </ul>
 
 <div class="relations">
@@ -72,6 +132,7 @@
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
       <li>Previous: <a href="wstep.html" title="poprzedni rozdział">Rozdział 1</a></li>
+      <li>Next: <a href="rozdzial3.html" title="następny rozdział">Rozdział 3</a></li>
   </ul></li>
 </ul>
 </div>

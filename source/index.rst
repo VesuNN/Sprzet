@@ -6,6 +6,7 @@
 
    wstep
    rozdzial2
+   rozdzial3
     
 Indices and tables
 ==================

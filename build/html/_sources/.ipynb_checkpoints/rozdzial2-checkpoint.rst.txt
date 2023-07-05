@@ -10,7 +10,7 @@ Instrukcja części klienckiej
 Dane w bazie są zbierane w dwóch tabelach. Pierwsza tabela posiada kolumny takie jak: Typ urządzenia, Numer seryjny, Lokalizacja, Data zakupu, Gwarancja.
 W drugiej tabeli zbierane są dane odnośnie przeglądów. Zawiera kolumny: Numer seryjny, Data przeglądu, Wynik przeglądu.
 Numer seryjny sprzętu jest kluczem głównym dla tej bazy.
-Obsługa serwisowa urządzeń części klienckiej odbywa się za pomocą konsoli. Uruchamiamy aplikację za pomocą pliku main.py.
+Obsługa serwisowa urządzeń części klienckiej odbywa się za pomocą konsoli. Uruchamiamy aplikację za pomocą pliku menagement.py.
 Oto opis każdej opcji menu wraz z odpowiadającymi im plikami:
 
 1. Wprowadź dane:
@@ -64,7 +64,19 @@ Ta opcja pozwala na wyczyszczenie wszystkich tabel w bazie danych lub całej baz
 
 Odpowiada za to plik: (clearDB.py)
 
-8. Wyjdź z programu:
+8. Filtruj dane i twórz raporty:
+------------------------------------------
+Opcja implementuje filtrowanie danych i tworzenie raportów na podstawie określonych kryteriów.
+
+Odpowiadają za to pliki: (raportGenerator.py oraz filter.py)
+
+9. Stwórz podsumowanie danych: 
+---------------------------------------------
+Agreguje dane i tworzy podsumowanie na podstawie określonych parametrów.
+
+Odpowiada za to plik: (summary.py)
+
+10. Wyjdź z programu:
 --------------------------
 Opcja kończy działanie programu i zamyka go.
 

@@ -46,6 +46,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../wstep.html">Rozdział 1</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../rozdzial2.html">Rozdział 2</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../rozdzial3.html">Rozdział 3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rozdzial4.html">Rozdział 4</a></li>
 </ul>
 
         </div>
@@ -142,6 +143,14 @@ Oto opis każdej opcji menu wraz z odpowiadającymi im plikami:</p>
 </section>
 <section id="omowienie-importu-danych-z-pliku-data-py-do-sqlite">
 <h2>Omówienie importu danych z pliku data.py do SQLite:<a class="headerlink" href="#omowienie-importu-danych-z-pliku-data-py-do-sqlite" title="Permalink to this heading"></a></h2>
+<p>1.Wczytanie danych o sprzęcie i przeglądach z plików CSV przy użyciu biblioteki pandas.
+2.Nawiązanie połączenia z bazą danych PostgreSQL poprzez wywołanie funkcji get_database_connection.
+3.Wywołanie funkcji create_table w celu utworzenia wymaganych tabel w bazie danych.
+4.Przekształcenie danych o sprzęcie i przeglądach z obiektów DataFrame na listy krotek.
+5.Wywołanie funkcji insert_equipment_data w celu wstawienia danych o sprzęcie do tabeli „data” w bazie danych.
+6.Wywołanie funkcji insert_service_data w celu wstawienia danych o przeglądach do tabeli „service” w bazie danych.
+7.Zatwierdzenie zmian w bazie danych poprzez wywołanie metody commit.
+8.Zamknięcie połączenia z bazą danych poprzez wywołanie metod close na obiektach kursora i połączenia.</p>
 <p># Sprawdzanie poprawności formatu daty</p>
 <blockquote>
 <div><dl class="simple">

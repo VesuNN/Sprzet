@@ -114,12 +114,12 @@ Oto opis każdej opcji menu wraz z odpowiadającymi im plikami:</p>
 </section>
 <section id="zaimportuj-dane-do-sqlite">
 <h2>2.Zaimportuj dane do SQLite:<a class="headerlink" href="#zaimportuj-dane-do-sqlite" title="Permalink to this heading"></a></h2>
-<p>Ta opcja odpowiada za importowanie danych wprowadzonych w poprzedniej opcji (data.py) do bazy danych SQLite. Plik dataToDB.py zawiera skrypt, który wykonuje operacje związane z importem danych i zapisuje je w bazie danych SQLite.</p>
+<p>Ta opcja odpowiada za importowanie danych wprowadzonych z pliku .csv do bazy danych SQLite. Plik dataToDB.py zawiera skrypt, który wykonuje operacje związane z importem danych i zapisuje je w bazie danych SQLite.</p>
 <p>Odpowiada za to plik: (dataToDB.py)</p>
 </section>
 <section id="zaimportuj-dane-do-postgresql">
 <h2>3.Zaimportuj dane do PostgreSQL:<a class="headerlink" href="#zaimportuj-dane-do-postgresql" title="Permalink to this heading"></a></h2>
-<p>Ta opcja służy do importowania danych wprowadzonych w data.py do bazy danych PostgreSQL. Skrypt importToPostgres.py zajmuje się operacjami związanymi z importem danych i zapisuje je w bazie danych PostgreSQL.</p>
+<p>Ta opcja służy do importowania danych z bazy danych utworzonych w SQLite do bazy danych PostgreSQL. Skrypt importToPostgres.py zajmuje się operacjami związanymi z importem danych i zapisuje je w bazie danych PostgreSQL.</p>
 <p>Odpowiada za to plik: (importToPostgres.py)</p>
 <p>Dokładne omówienie importowania z SQLite do PostgreSQL zostanie przedstawione w rozdziale 3.</p>
 </section>
@@ -130,7 +130,7 @@ Oto opis każdej opcji menu wraz z odpowiadającymi im plikami:</p>
 </section>
 <section id="wstaw-dane-testowe">
 <h2>5. Wstaw dane testowe:<a class="headerlink" href="#wstaw-dane-testowe" title="Permalink to this heading"></a></h2>
-<p>Ta opcja służy do wstawienia danych testowych do bazy danych. Plik testData.py zawiera skrypt, który generuje przykładowe dane testowe i wprowadza je do bazy danych.</p>
+<p>Ta opcja służy do wstawienia danych testowych do bazy danych. Plik testData.py zawiera skrypt, który posiada przykładowe dane testowe i wprowadza je do bazy danych.</p>
 <p>Odpowiada za to plik: (testData.py)</p>
 </section>
 <section id="wyczysc-tabele">

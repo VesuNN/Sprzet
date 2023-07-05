@@ -1,5 +1,5 @@
 ===============
-Sprzęt dla bazy danych
+Rozdział 1
 ===============
 
 .. image:: _static/baza.png
